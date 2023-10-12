@@ -1,8 +1,8 @@
 package com.soyoung.ssotudio.controller;
 
 import com.soyoung.ssotudio.dto.RequestAPIObjectDto;
-import com.soyoung.ssotudio.dto.ResponseDto;
-import com.soyoung.ssotudio.dto.ResponseMetaColumnsDto;
+import com.soyoung.ssotudio.dto.ApiResponse;
+import com.soyoung.ssotudio.dto.Columns;
 import com.soyoung.ssotudio.service.MetaService;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -29,9 +29,15 @@ public class MetaController {
         LOGGER.info("getColumns()");
         String output = metaService.makeColumns(requestAPIObjectDto.object);
 
-        ResponseMetaColumnsDto responseMetaColumnsDto = ResponseMetaColumnsDto.builder().columns(output).build();
-        ResponseDto responseDto = ResponseDto.builder().resultType("SUCCESS").error(null).success(responseMetaColumnsDto).build();
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        Columns columns = Columns.builder().columns(output).build();
+
+        // return API response
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(columns).build();
+        ApiResponse apiResponse = ApiResponse.builder()
+                .resultType("SUCCESS")
+                .error(null)
+                .success(result).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
 }
