@@ -1,8 +1,7 @@
 package com.soyoung.ssotudio.controller;
 
-import com.soyoung.ssotudio.dto.RequestAPIObjectDto;
-import com.soyoung.ssotudio.dto.ApiResponse;
-import com.soyoung.ssotudio.dto.Columns;
+import com.soyoung.ssotudio.dto.*;
+
 import com.soyoung.ssotudio.service.MetaService;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -29,15 +28,21 @@ public class MetaController {
         LOGGER.info("getColumns()");
         String output = metaService.makeColumns(requestAPIObjectDto.object);
 
-        Columns columns = Columns.builder().columns(output).build();
+//        Columns columns = Columns.builder().columns(output).build();
 
         // return API response
-        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(columns).build();
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(output).build();
         ApiResponse apiResponse = ApiResponse.builder()
                 .resultType("SUCCESS")
                 .error(null)
                 .success(result).build();
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/badges")
+    public ResponseEntity getBadges(@RequestBody RequestBadgeDto requestBadgeDto) {
+        LOGGER.info("getBadges()");
+        return null;
     }
 
 }

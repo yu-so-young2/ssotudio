@@ -7,6 +7,6 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestAPIObjectDto {
-    public String object;
+public class ResponseMetaBadgeDto {
+    private String badge;
 }
