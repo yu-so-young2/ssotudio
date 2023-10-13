@@ -13,18 +13,19 @@ import java.util.Map;
 public class Columns {
     private Map<String, Column> columns;
     private List<String> order;
+    private String json;
 
     @Getter
     @Setter
     @Builder
-    class Column {
+    static class Column {
         private String label;
         List<Content> contents;
 
         @Getter
         @Setter
         @Builder
-        class Content {
+        static class Content {
             private String key;
             private String type = "string";
         }

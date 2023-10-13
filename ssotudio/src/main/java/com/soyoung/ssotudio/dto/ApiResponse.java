@@ -12,18 +12,18 @@ public class ApiResponse {
     private ErrorDetails error;
     private SuccessDetails success;
 
-    @Builder
     @Setter
     @Getter
-    public class ErrorDetails {
+    @Builder
+    public static class ErrorDetails {
         private String code;
         private String message;
     }
 
-    @Builder
     @Setter
     @Getter
-    public class SuccessDetails {
+    @Builder
+    public static class SuccessDetails {
         private Object result;
     }
 

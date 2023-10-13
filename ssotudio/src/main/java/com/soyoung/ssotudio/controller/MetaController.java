@@ -1,8 +1,8 @@
 package com.soyoung.ssotudio.controller;
 
-import com.soyoung.ssotudio.dto.RequestAPIObjectDto;
-import com.soyoung.ssotudio.dto.ApiResponse;
-import com.soyoung.ssotudio.dto.Columns;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.soyoung.ssotudio.dto.*;
+
 import com.soyoung.ssotudio.service.MetaService;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -27,12 +27,28 @@ public class MetaController {
     @PostMapping("/columns")
     public ResponseEntity getColumns(@RequestBody RequestAPIObjectDto requestAPIObjectDto) throws ParseException {
         LOGGER.info("getColumns()");
-        String output = metaService.makeColumns(requestAPIObjectDto.object);
 
-        Columns columns = Columns.builder().columns(output).build();
+        String output = metaService.makeColumns(requestAPIObjectDto);
+
+//        Columns columns = Columns.builder().columns(output).build();
 
         // return API response
-        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(columns).build();
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(output).build();
+        ApiResponse apiResponse = ApiResponse.builder()
+                .resultType("SUCCESS")
+                .error(null)
+                .success(result).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/badges")
+    public ResponseEntity getBadges(@RequestBody Badge requestBadge) throws JsonProcessingException {
+        LOGGER.info("getBadges()");
+
+        String jsonString = metaService.makeBadges(requestBadge);
+
+        // return API response
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(jsonString).build();
         ApiResponse apiResponse = ApiResponse.builder()
                 .resultType("SUCCESS")
                 .error(null)

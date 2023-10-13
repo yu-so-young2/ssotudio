@@ -18,8 +18,8 @@ public class Badge {
     @Getter
     @Setter
     @Builder
-    class BadgeValue {
-        private String value;
+    public static class BadgeValue {
+        private Object value; // String, Boolean 모두 가능
         private String label;
         private String color;
         private String variant;
