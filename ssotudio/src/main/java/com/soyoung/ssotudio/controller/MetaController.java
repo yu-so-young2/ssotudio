@@ -25,15 +25,13 @@ public class MetaController {
     }
 
     @PostMapping("/columns")
-    public ResponseEntity getColumns(@RequestBody RequestAPIObjectDto requestAPIObjectDto) throws ParseException {
+    public ResponseEntity getColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException, ParseException {
         LOGGER.info("getColumns()");
 
-        String output = metaService.makeColumns(requestAPIObjectDto);
-
-//        Columns columns = Columns.builder().columns(output).build();
+        String jsonString = metaService.makeColumns(jsonDto);
 
         // return API response
-        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(output).build();
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(jsonString).build();
         ApiResponse apiResponse = ApiResponse.builder()
                 .resultType("SUCCESS")
                 .error(null)
@@ -42,10 +40,10 @@ public class MetaController {
     }
 
     @PostMapping("/badges")
-    public ResponseEntity getBadges(@RequestBody Badge requestBadge) throws JsonProcessingException {
+    public ResponseEntity getBadges(@RequestBody ContentBadge requestContentBadge) throws JsonProcessingException {
         LOGGER.info("getBadges()");
 
-        String jsonString = metaService.makeBadges(requestBadge);
+        String jsonString = metaService.makeBadges(requestContentBadge);
 
         // return API response
         ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(jsonString).build();
