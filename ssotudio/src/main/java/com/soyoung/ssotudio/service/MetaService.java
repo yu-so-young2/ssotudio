@@ -1,5 +1,9 @@
 package com.soyoung.ssotudio.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.soyoung.ssotudio.dto.Badge;
+import com.soyoung.ssotudio.dto.RequestAPIObjectDto;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,12 +27,12 @@ public class MetaService {
     }
 
     // string Json 들어오면 columns 만들어주기
-    public String makeColumns(String object) throws ParseException {
+    public String makeColumns(RequestAPIObjectDto requestAPIObjectDto) throws ParseException {
         LOGGER.info("makeColumns()");
 
         // String -> Json Object 변환
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject)parser.parse(object);
+        JSONObject jsonObject = (JSONObject)parser.parse(requestAPIObjectDto.object);
 
         // Json Object -> Columns 만들기
         HashMap map = jsonObject;
@@ -61,12 +65,37 @@ public class MetaService {
             column.put("contents", contents);
             columns.put(key, column);
 
-
         }
 
         root.put("order",order);
         root.put("columns",columns);
 
         return root.toString();
+    }
+
+    public String makeBadges(Badge requestBadge) throws JsonProcessingException {
+        // Object 생성
+        Badge newBadge = new Badge();
+        List<Badge.BadgeValue> badgeValueList = new ArrayList<>();
+        for (Badge.BadgeValue requestBadgeValue : requestBadge.getValues()) {
+
+            badgeValueList.add(Badge.BadgeValue.builder()
+                            .color(requestBadgeValue.getColor())
+                            .variant(requestBadgeValue.getVariant())
+                            .label(requestBadgeValue.getLabel())
+                            .value(requestBadgeValue.getValue().equals("true")?true:requestBadgeValue.getValue().equals("false")?false:requestBadgeValue.getValue())
+                    .build());
+        }
+
+        newBadge.setKey(requestBadge.getKey()); // key 설정
+        newBadge.setValues(badgeValueList); // values 설정
+
+
+        // Object -> Json String으로 변환
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(newBadge);
+        System.out.println(jsonString);
+
+        return jsonString;
     }
 }

@@ -1,5 +1,6 @@
 package com.soyoung.ssotudio.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.soyoung.ssotudio.dto.*;
 
 import com.soyoung.ssotudio.service.MetaService;
@@ -26,7 +27,8 @@ public class MetaController {
     @PostMapping("/columns")
     public ResponseEntity getColumns(@RequestBody RequestAPIObjectDto requestAPIObjectDto) throws ParseException {
         LOGGER.info("getColumns()");
-        String output = metaService.makeColumns(requestAPIObjectDto.object);
+
+        String output = metaService.makeColumns(requestAPIObjectDto);
 
 //        Columns columns = Columns.builder().columns(output).build();
 
@@ -40,9 +42,18 @@ public class MetaController {
     }
 
     @PostMapping("/badges")
-    public ResponseEntity getBadges(@RequestBody RequestBadgeDto requestBadgeDto) {
+    public ResponseEntity getBadges(@RequestBody Badge requestBadge) throws JsonProcessingException {
         LOGGER.info("getBadges()");
-        return null;
+
+        String jsonString = metaService.makeBadges(requestBadge);
+
+        // return API response
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(jsonString).build();
+        ApiResponse apiResponse = ApiResponse.builder()
+                .resultType("SUCCESS")
+                .error(null)
+                .success(result).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
 }
