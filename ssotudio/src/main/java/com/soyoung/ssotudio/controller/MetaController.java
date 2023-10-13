@@ -40,7 +40,7 @@ public class MetaController {
     }
 
     @PostMapping("/badges")
-    public ResponseEntity getBadges(@RequestBody ContentBadge requestContentBadge) throws JsonProcessingException {
+    public ResponseEntity getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
         LOGGER.info("getBadges()");
 
         String jsonString = metaService.makeBadges(requestContentBadge);

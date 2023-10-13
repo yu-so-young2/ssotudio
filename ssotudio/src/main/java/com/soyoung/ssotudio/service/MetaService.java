@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.soyoung.ssotudio.dto.ContentBadge;
 import com.soyoung.ssotudio.dto.Columns;
 import com.soyoung.ssotudio.dto.JsonDto;
+import com.soyoung.ssotudio.dto.RequestContentBadge;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -83,7 +83,7 @@ public class MetaService {
         return jsonString;
     }
 
-    public String makeBadges(ContentBadge requestContentBadge) throws JsonProcessingException {
+    public String makeBadges(RequestContentBadge requestContentBadge) throws JsonProcessingException {
         LOGGER.info("makeBadges()");
 
 
