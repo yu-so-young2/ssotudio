@@ -11,23 +11,23 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Columns {
-    private Map<String, Column> columns;
     private List<String> order;
-    private String json;
+    private Map<String, Column> columns;
+
 
     @Getter
     @Setter
     @Builder
-    static class Column {
+    public static class Column {
         private String label;
-        List<Content> contents;
+        private List<Content> contents;
 
         @Getter
         @Setter
         @Builder
-        static class Content {
+        public static class Content {
             private String key;
-            private String type = "string";
+            private String type;
         }
     }
 

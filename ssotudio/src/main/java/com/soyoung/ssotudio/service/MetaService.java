@@ -1,9 +1,13 @@
 package com.soyoung.ssotudio.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soyoung.ssotudio.dto.Badge;
-import com.soyoung.ssotudio.dto.RequestAPIObjectDto;
+import com.soyoung.ssotudio.dto.ContentBadge;
+import com.soyoung.ssotudio.dto.Columns;
+import com.soyoung.ssotudio.dto.JsonDto;
+import com.soyoung.ssotudio.dto.RequestContentBadge;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -12,10 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MetaService {
@@ -27,59 +28,71 @@ public class MetaService {
     }
 
     // string Json 들어오면 columns 만들어주기
-    public String makeColumns(RequestAPIObjectDto requestAPIObjectDto) throws ParseException {
+    public String makeColumns(JsonDto jsonDto) throws JsonProcessingException, ParseException {
         LOGGER.info("makeColumns()");
 
+        // Object 생성
+        Columns root = new Columns();
+        Map<String, Columns.Column> columns = new JSONObject();
+        List<String> order = new ArrayList<>();
+
+        // 1. key 추출
         // String -> Json Object 변환
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject)parser.parse(requestAPIObjectDto.object);
-
-        // Json Object -> Columns 만들기
+        JSONObject jsonObject = (JSONObject)parser.parse(jsonDto.object);
         HashMap map = jsonObject;
-        String output = generateJson(map);
-
-        return output;
-    }
-
-    private static String generateJson(HashMap input) {
-        JSONObject root = new JSONObject();
-        List<String> order = new ArrayList<>();
-        JSONObject columns = new JSONObject();
-
-        Iterator i = input.keySet().iterator();
+        Iterator i = map.keySet().iterator();
         while(i.hasNext()) {
-            String key = (String)i.next(); // key 추출
+            String key = (String) i.next(); // key 추출
 
-            // order에 추가
+            // 2. order 추가
             order.add(key);
 
-            // columns에 추가
-            JSONObject column = new JSONObject();
-            List<JSONObject> contents = new ArrayList<>();
-            JSONObject content = new JSONObject();
-            content.put("key", key);
-            content.put("type","string");
+            // 3. columns 추가
+            Columns.Column.Content content = Columns.Column.Content.builder()
+                    .key(key)
+                    .type("string")
+                    .build();
+            List<Columns.Column.Content> contents = new ArrayList<>();
             contents.add(content);
 
-            column.put("label",key);
-            column.put("contents", contents);
+            Columns.Column column = Columns.Column.builder()
+                    .label(key)
+                    .contents(contents)
+                    .build();
+
             columns.put(key, column);
 
         }
 
-        root.put("order",order);
-        root.put("columns",columns);
+        root.setOrder(order);
+        root.setColumns(columns);
 
-        return root.toString();
+        // Object -> Json String으로 변환
+        ObjectMapper mapper = new ObjectMapper();
+
+        // 리스트 내부의 요소를 줄 바꿈과 들여쓰기로 출력하기 위해 Indenter 설정
+        DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+        DefaultPrettyPrinter.Indenter indenter = new DefaultIndenter("  ", "\n");
+        printer = printer.withArrayIndenter(indenter);
+
+        String jsonString = mapper.writer(printer).writeValueAsString(root);
+
+        System.out.println(jsonString);
+
+        return jsonString;
     }
 
-    public String makeBadges(Badge requestBadge) throws JsonProcessingException {
-        // Object 생성
-        Badge newBadge = new Badge();
-        List<Badge.BadgeValue> badgeValueList = new ArrayList<>();
-        for (Badge.BadgeValue requestBadgeValue : requestBadge.getValues()) {
+    public String makeBadges(RequestContentBadge requestContentBadge) throws JsonProcessingException {
+        LOGGER.info("makeBadges()");
 
-            badgeValueList.add(Badge.BadgeValue.builder()
+
+        // Object 생성
+        ContentBadge contentBadge = new ContentBadge();
+        List<ContentBadge.BadgeValue> badgeValueList = new ArrayList<>();
+        for (ContentBadge.BadgeValue requestBadgeValue : requestContentBadge.getValues()) {
+
+            badgeValueList.add(ContentBadge.BadgeValue.builder()
                             .color(requestBadgeValue.getColor())
                             .variant(requestBadgeValue.getVariant())
                             .label(requestBadgeValue.getLabel())
@@ -87,14 +100,20 @@ public class MetaService {
                     .build());
         }
 
-        newBadge.setKey(requestBadge.getKey()); // key 설정
-        newBadge.setValues(badgeValueList); // values 설정
+        contentBadge.setType("badge"); // type 설정
+        contentBadge.setKey(requestContentBadge.getKey()); // key 설정
+        contentBadge.setValues(badgeValueList); // values 설정
 
 
         // Object -> Json String으로 변환
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(newBadge);
-        System.out.println(jsonString);
+
+        // 리스트 내부의 요소를 줄 바꿈과 들여쓰기로 출력하기 위해 Indenter 설정
+        DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
+        DefaultPrettyPrinter.Indenter indenter = new DefaultIndenter("  ", "\n");
+        printer = printer.withArrayIndenter(indenter);
+
+        String jsonString = mapper.writer(printer).writeValueAsString(contentBadge);
 
         return jsonString;
     }

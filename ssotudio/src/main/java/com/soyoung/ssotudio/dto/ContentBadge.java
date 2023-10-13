@@ -3,16 +3,15 @@ package com.soyoung.ssotudio.dto;
 import lombok.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Badge {
+public class ContentBadge {
     private String key;
-    private String type = "badge";
+    private String type;
     private List<BadgeValue> values;
 
     @Getter
