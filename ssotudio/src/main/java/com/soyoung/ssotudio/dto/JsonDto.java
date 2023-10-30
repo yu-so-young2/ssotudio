@@ -2,11 +2,8 @@ package com.soyoung.ssotudio.dto;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class JsonDto {
     public String object;
 }

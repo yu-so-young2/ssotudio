@@ -1,0 +1,30 @@
+package com.soyoung.ssotudio.domain.Field;
+
+public enum FieldType {
+    alert,
+    async_description,
+    async_image,
+    border,
+    checkbox,
+    date,
+    date_range,
+    description,
+    file,
+    hidden,
+    hstack,
+    number,
+    link,
+    list,
+    password,
+    radio,
+    stepper,
+    text,
+    textarea,
+    tab,
+    toggle,
+    select,
+    multi_select,
+    tree_select,
+    multi_tree_select,
+    bank_account_select
+}
