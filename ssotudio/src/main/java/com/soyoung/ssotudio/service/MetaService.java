@@ -100,7 +100,7 @@ public class MetaService {
                     .build());
         }
 
-        contentBadge.setType("badge"); // type 설정
+        contentBadge.setType(ContentsType.badge); // type 설정
         contentBadge.setKey(requestContentBadge.getKey()); // key 설정
         contentBadge.setValues(badgeValueList); // values 설정
 

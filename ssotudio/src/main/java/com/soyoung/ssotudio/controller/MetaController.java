@@ -39,7 +39,8 @@ public class MetaController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/badges")
+    @Deprecated
+    //@PostMapping("/badges")
     public ResponseEntity getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
         LOGGER.info("getBadges()");
 
