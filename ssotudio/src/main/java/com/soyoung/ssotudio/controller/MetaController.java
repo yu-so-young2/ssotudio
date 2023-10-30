@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class MetaController {
@@ -48,6 +50,20 @@ public class MetaController {
 
         // return API response
         ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(jsonString).build();
+        ApiResponse apiResponse = ApiResponse.builder()
+                .resultType("SUCCESS")
+                .error(null)
+                .success(result).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("form/types")
+    public ResponseEntity getFormFieldTypes() {
+        LOGGER.info("getFormFieldTypes()");
+
+        List<EnumDto> formFieldTypes = metaService.getFormFieldTypes();
+        // return API response
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(formFieldTypes).build();
         ApiResponse apiResponse = ApiResponse.builder()
                 .resultType("SUCCESS")
                 .error(null)

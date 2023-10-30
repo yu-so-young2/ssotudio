@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soyoung.ssotudio.dto.ContentBadge;
-import com.soyoung.ssotudio.dto.Columns;
-import com.soyoung.ssotudio.dto.JsonDto;
-import com.soyoung.ssotudio.dto.RequestContentBadge;
+import com.soyoung.ssotudio.dto.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -39,10 +36,10 @@ public class MetaService {
         // 1. key 추출
         // String -> Json Object 변환
         JSONParser parser = new JSONParser();
-        JSONObject jsonObject = (JSONObject)parser.parse(jsonDto.object);
+        JSONObject jsonObject = (JSONObject) parser.parse(jsonDto.object);
         HashMap map = jsonObject;
         Iterator i = map.keySet().iterator();
-        while(i.hasNext()) {
+        while (i.hasNext()) {
             String key = (String) i.next(); // key 추출
 
             // 2. order 추가
@@ -93,10 +90,10 @@ public class MetaService {
         for (ContentBadge.BadgeValue requestBadgeValue : requestContentBadge.getValues()) {
 
             badgeValueList.add(ContentBadge.BadgeValue.builder()
-                            .color(requestBadgeValue.getColor())
-                            .variant(requestBadgeValue.getVariant())
-                            .label(requestBadgeValue.getLabel())
-                            .value(requestBadgeValue.getValue().equals("true")?true:requestBadgeValue.getValue().equals("false")?false:requestBadgeValue.getValue())
+                    .color(requestBadgeValue.getColor())
+                    .variant(requestBadgeValue.getVariant())
+                    .label(requestBadgeValue.getLabel())
+                    .value(requestBadgeValue.getValue().equals("true") ? true : requestBadgeValue.getValue().equals("false") ? false : requestBadgeValue.getValue())
                     .build());
         }
 
@@ -116,5 +113,16 @@ public class MetaService {
         String jsonString = mapper.writer(printer).writeValueAsString(contentBadge);
 
         return jsonString;
+    }
+
+    public List<EnumDto> getFormFieldTypes() {
+        String[] types = {"alert", "async_description","async_image", "border", "checkbox", "date","date_range",
+                "description", "file", "hidden", "hstack", "number", "link","list",  "password", "radio",  "stepper", "text",  "textarea",    "tab",  "toggle",  "select", "multi_select", "tree_select", "multi_tree_select","bank_account_select"};
+        List<EnumDto> formFieldTypes = new ArrayList<>();
+        for (int i = 0; i < types.length; i++) {
+            String type = types[i];
+            formFieldTypes.add(EnumDto.builder().label(type).value(type).build());
+        }
+        return formFieldTypes;
     }
 }
