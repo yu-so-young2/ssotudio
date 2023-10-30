@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class BadgeController {
 
-        private final BadgeService badgeService;
+    private final BadgeService badgeService;
 
     @PostMapping("/badges")
     public ResponseEntity<BasicResponse> getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {

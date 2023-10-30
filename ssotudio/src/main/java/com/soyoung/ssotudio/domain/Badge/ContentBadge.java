@@ -1,6 +1,5 @@
-package com.soyoung.ssotudio.dto;
+package com.soyoung.ssotudio.domain.Badge;
 
-import com.soyoung.ssotudio.service.ContentsType;
 import lombok.*;
 
 import java.util.List;
@@ -9,11 +8,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ContentBadge {
     private String key;
-    private ContentsType type;
+    private ContentType type;
     private List<BadgeValue> values;
 
     @Builder
-    public ContentBadge(String key, ContentsType type, List<BadgeValue> values) {
+    public ContentBadge(String key, ContentType type, List<BadgeValue> values) {
         this.key = key;
         this.type = type;
         this.values = values;

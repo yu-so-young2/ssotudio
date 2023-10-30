@@ -1,7 +1,7 @@
 package com.soyoung.ssotudio.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.soyoung.ssotudio.dto.ContentBadge;
+import com.soyoung.ssotudio.domain.Badge.ContentBadge;
 import com.soyoung.ssotudio.dto.RequestContentBadge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

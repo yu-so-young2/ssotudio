@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.constant.MetaBoolean;
-import com.soyoung.ssotudio.dto.ContentBadge;
+import com.soyoung.ssotudio.domain.Badge.ContentType;
+import com.soyoung.ssotudio.domain.Badge.ContentBadge;
 import com.soyoung.ssotudio.dto.RequestContentBadge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class BadgeService {
 
     private static ContentBadge getContentBadge(RequestContentBadge requestContentBadge, List<ContentBadge.BadgeValue> badgeValues) {
         return ContentBadge.builder()
-                .type(ContentsType.badge)
+                .type(ContentType.badge)
                 .key(requestContentBadge.getKey())
                 .values(badgeValues)
                 .build();
