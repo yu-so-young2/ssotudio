@@ -62,8 +62,24 @@ public class MetaController {
         LOGGER.info("getFormFieldTypes()");
 
         List<EnumDto> formFieldTypes = metaService.getFormFieldTypes();
+
         // return API response
         ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(formFieldTypes).build();
+        ApiResponse apiResponse = ApiResponse.builder()
+                .resultType("SUCCESS")
+                .error(null)
+                .success(result).build();
+        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("form/format")
+    public ResponseEntity getFormFieldDefaultFormat(@RequestParam("type") String type){
+        LOGGER.info("getFormFieldDefaultFormat()");
+
+        FieldDto field = metaService.getFormFieldDefaultFormat(type);
+
+        // return API response
+        ApiResponse.SuccessDetails result = ApiResponse.SuccessDetails.builder().result(field).build();
         ApiResponse apiResponse = ApiResponse.builder()
                 .resultType("SUCCESS")
                 .error(null)

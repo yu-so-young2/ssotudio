@@ -125,4 +125,8 @@ public class MetaService {
         }
         return formFieldTypes;
     }
+
+    public FieldDto getFormFieldDefaultFormat(String type) {
+        return null;
+    }
 }
