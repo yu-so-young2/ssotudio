@@ -14,9 +14,7 @@ public class PrinterConfig {
     @Bean
     public DefaultPrettyPrinter defaultPrettyPrinter() {
         DefaultPrettyPrinter defaultPrettyPrinter = new DefaultPrettyPrinter();
-        defaultPrettyPrinter.withArrayIndenter(indenter());
-
-        return defaultPrettyPrinter;
+        return defaultPrettyPrinter.withArrayIndenter(indenter());
     }
 
     @Bean
