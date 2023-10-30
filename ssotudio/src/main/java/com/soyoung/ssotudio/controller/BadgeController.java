@@ -3,7 +3,6 @@ package com.soyoung.ssotudio.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
-import com.soyoung.ssotudio.dto.ApiResponse;
 import com.soyoung.ssotudio.dto.RequestContentBadge;
 import com.soyoung.ssotudio.service.BadgeService;
 import lombok.RequiredArgsConstructor;
