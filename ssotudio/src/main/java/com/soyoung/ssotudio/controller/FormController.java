@@ -28,8 +28,10 @@ public class FormController {
 
         List<EnumDto> formFieldTypes = formService.getFormFieldTypes();
 
-        BasicResponse<List<EnumDto>> response = BasicResponse.of(ResultType.SUCCESS, null, formFieldTypes);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+//        BasicResponse<List<EnumDto>> response = BasicResponse.of(ResultType.SUCCESS, null, formFieldTypes);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        return new ResponseEntity(formFieldTypes, HttpStatus.OK);
     }
 
     @Deprecated
