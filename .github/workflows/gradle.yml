@@ -49,6 +49,7 @@ jobs:
     # gradle을 통해 소스를 빌드.
     - name: Build with Gradle
       run: |
+          git checkout develop
           cd ssotudio
           chmod +x ./gradlew
           ./gradlew build
