@@ -80,7 +80,6 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           sudo docker rm -f $(docker ps -qa)
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ssotudio
           docker-compose up -d
           docker image prune -f
