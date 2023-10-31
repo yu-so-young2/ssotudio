@@ -62,6 +62,7 @@ jobs:
     - name: web docker build and push
       run: |
         ls -al
+        cd ssotudio
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.DOCKER_REPO }}/ssotudio .
         docker push ${{ secrets.DOCKER_REPO }}/ssotudio
