@@ -52,7 +52,7 @@ jobs:
     - name: Build with Gradle
       run: |
           ls -al
-          cd ssotidio
+          cd ssotudio
           chmod +x ./gradlew
           ./gradlew build
 
