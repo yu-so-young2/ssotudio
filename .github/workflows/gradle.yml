@@ -1,0 +1,80 @@
+## Default Setting
+name: Java CI with Gradle
+
+on: # on : 어떤 조건에서 이 workflow를 실행할 것인지 컨디션
+  push:
+   branches: [ "main", "develop" ]
+  pull_request:
+   branches: [ "main", "develop" ]
+
+permissions: # permissions : 코드의 내용을 이 파일을 실행하여 action을 수행하는 주체(Github Actions에서 사용하는 VM)가 읽을 수 있도록 허용합니다.
+  contents: read
+
+
+## 실제로 실행될 내용 정의
+jobs:
+  build:
+    runs-on: ubuntu-latest # runs-on : github action의 CI서버 runner가 어떤 환경을 갖출지 고르는 것, ubuntu-latest : ubuntu 최신 버전에서 script를 실행
+    steps: # 처리할 일들을 순서대로 하나씩 정의
+
+    # checkout : 지정한 저장소(현재 REPO)에서 코드를 runner 워크플로우 환경으로 가져오도록 하는 github action
+    - name: checkout
+      uses: actions/checkout@v3
+
+    # open jdk 17 버전 환경을 세팅
+    - name: Set up JDK 20
+      uses: actions/setup-java@v3
+      with:
+        java-version: '20'
+        distribution: 'zulu'
+
+    ## 환경파일 작성 : github에 올리지 못하는 정보의 설정파일을 runner에 삽입하는 것
+    ## 필요없어서 작성 안 함
+    # ## create application-database.yaml
+    # - name: make application-database.yaml
+    #   run: |
+    #     ## create application-database.yaml
+    #     cd ./src/main/resources
+
+    #     # application-database.yaml 파일 생성
+    #     touch ./application-database.yaml
+
+    #     # GitHub-Actions 에서 설정한 값을 application-database.yaml 파일에 쓰기
+    #     echo "${{ secrets.DATABASE }}" >> ./application-database.yaml
+    #   shell: bash
+
+    ## gradle build
+    # - name: Build with Gradle
+    #   run: ./gradlew build
+    # gradle을 통해 소스를 빌드.
+    - name: Build with Gradle
+      run: |
+          cd ssotudio
+          chmod +x ./gradlew
+          ./gradlew build
+
+
+
+    ## 웹 이미지 빌드 및 도커허브에 push
+    - name: web docker build and push
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t ${{ secrets.DOCKER_REPO }}/ssotudio .
+        docker push ${{ secrets.DOCKER_REPO }}/ssotudio
+
+    ## docker compose up
+    ## appleboy/ssh-action@master 액션을 사용하여 지정한 서버에 ssh로 접속하고, script를 실행
+    # script의 내용은 도커의 기존 프로세스들을 제거하고, docker repo로부터 방금 위에서 push한 내용을 pull 받아 실행하는 것입니다. 
+    # 실행 시, docker-compose를 사용합니다.
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ubuntu
+        key: ${{ secrets.KEY }}
+        script: |
+          sudo docker rm -f $(docker ps -qa)
+          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
+          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
+          docker-compose up -d
+          docker image prune -f
