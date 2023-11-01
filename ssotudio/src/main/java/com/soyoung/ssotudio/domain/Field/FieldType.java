@@ -1,6 +1,7 @@
 package com.soyoung.ssotudio.domain.Field;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,10 +11,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
+@RequiredArgsConstructor
 public enum FieldType {
     alert("alert", "{\r\n   \"icon\":\"icon-warning-circle\",\r\n   \"size\":\"medium\",\r\n   \"type\":\"alert\",\r\n   \"theme\":\"yellow\",\r\n   \"value\":\"여기에 메시지를 입력하세요\"\r\n}"),
-//    async_description("async_description", ""),
-//    async_image("async_image", ""),
+//    async_description("async-description", ""),
+//    async_image("async-image", ""),
     border("border", "{\r\n   \"type\":\"border\",\r\n   \"theme\":\"default\"\r\n}"),
     checkbox("checkbox", "{\r\n   \"name\":\"본인체크\",\r\n   \"type\":\"checkbox\",\r\n   \"options\":[\r\n      \"고객 본인의 요청으로 진행하는 것을 확인했습니다.\"\r\n   ],\r\n   \"minLength\":1,\r\n   \"validationMessage\":{\r\n      \"empty\":\"내용을 확인하고 체크해주세요.\"\r\n   }\r\n}"),
     date("date", "{\r\n   \"name\":\"startDate\",\r\n   \"type\":\"date\",\r\n   \"label\":\"조회기간\",\r\n   \"dateFormat\":\"yyyy-MM-dd\",\r\n   \"placeholder\":\"YYYY-MM-dd\",\r\n   \"defaultValue\":\"0d\",\r\n   \"validationMessage\":{\r\n      \"empty\":\"조회기간을 입력해주세요.\"\r\n   },\r\n   \"serializeWithIsoFormat\":true\r\n}"),
@@ -25,8 +27,8 @@ public enum FieldType {
     hidden_raw("hidden (raw)", "{\r\n   \"name\":\"name\",\r\n   \"type\":\"hidden\",\r\n   \"value\":{\r\n      \"type\":\"raw\",\r\n      \"content\":true\r\n\r\n   }\r\n}"),
     hstack("hstack", "{\r\n   \"type\":\"hstack\",\r\n   \"children\":[\r\n      \r\n   ],\r\n   \"fractions\":[\r\n      \"1fr\",\r\n      \"1fr\"\r\n   ]\r\n}"),
     number("number", "{\r\n   \"name\":\"interest\",\r\n   \"type\":\"number\",\r\n   \"label\":\"금리\",\r\n   \"defaultValue\":\"{{interest}}\"\r\n}"),
-    list("list", "{\r\n   \"name\":\"listEx\",\r\n   \"type\":\"list\",\r\n   \"label\":\"리스트\",\r\n   \"subText\":\"Object를 리스트에 담아 보낼 수 있어요.\",\r\n   \"draggable\":true,\r\n   \"children\":[\r\n      \r\n   ]\r\n}"),
     link("link", "{\r\n   \"type\":\"link\",\r\n   \"value\":\"열기\",\r\n   \"targetContainer\":{\r\n      \"type\":\"리다이렉트\",\r\n      \"params\":{\r\n         \"gaNo\":{\r\n            \"key\":\"sendUserGaNo\"\r\n         }\r\n      },\r\n      \"codeName\":\"리다이렉트\"\r\n   }\r\n}"),
+    list("list", "{\r\n   \"name\":\"listEx\",\r\n   \"type\":\"list\",\r\n   \"label\":\"리스트\",\r\n   \"subText\":\"Object를 리스트에 담아 보낼 수 있어요.\",\r\n   \"draggable\":true,\r\n   \"children\":[\r\n      \r\n   ]\r\n}"),
     password("password", "{\r\n   \"name\":\"password\",\r\n   \"type\":\"password\",\r\n   \"label\":\"비밀번호\",\r\n   \"placeholder\":\"비밀번호 입력\"\r\n}"),
     radio_async("radio (async)", "{\r\n   \"name\":\"valid\",\r\n   \"type\":\"radio\",\r\n   \"label\":\"적용여부\",\r\n   \"inline\":true,\r\n   \"options\":{\r\n      \"type\":\"async\",\r\n      \"keyMap\":{\r\n         \"label\":\"label\",\r\n         \"value\":\"value\"\r\n      },\r\n      \"actionName\":\"fetchBankList\",\r\n      \"requiredFields\":[\r\n         \r\n      ]\r\n   }\r\n}"),
     radio_pairs("radio (pairs)", "{\r\n   \"name\":\"valid\",\r\n   \"type\":\"radio\",\r\n   \"label\":\"적용여부\",\r\n   \"inline\":true,\r\n   \"options\":{\r\n      \"type\":\"pairs\",\r\n      \"values\":[\r\n         {\r\n            \"label\":\"적용\",\r\n            \"value\":\"true\"\r\n         },\r\n         {\r\n            \"label\":\"미적용\",\r\n            \"value\":\"false\"\r\n         }\r\n      ]\r\n   }\r\n}"),
@@ -38,12 +40,12 @@ public enum FieldType {
     select_async("select (async)","{\r\n   \"name\":\"withdrawBankCode\",\r\n   \"type\":\"select\",\r\n   \"label\":\"출금 은행\",\r\n   \"options\":{\r\n      \"type\":\"async\",\r\n      \"keyMap\":{\r\n         \"label\":\"label\",\r\n         \"value\":\"value\"\r\n      },\r\n      \"actionName\":\"fetchBankList\",\r\n      \"requiredFields\":[]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
     select_pairs("select (pairs)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"pairs\",\r\n      \"values\":[\r\n         {\r\n            \"label\":\"A\",\r\n            \"value\":\"A\"\r\n         },\r\n         {\r\n            \"label\":\"B\",\r\n            \"value\":\"B\"\r\n         }\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
     select_values("select (values)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"values\",\r\n      \"values\":[\r\n         \"A\",\r\n         \"B\",\r\n         \"C\"\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
-    multi_select_async("multi_select (async)","{\r\n   \"name\":\"withdrawBankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"출금 은행\",\r\n   \"options\":{\r\n      \"type\":\"async\",\r\n      \"keyMap\":{\r\n         \"label\":\"label\",\r\n         \"value\":\"value\"\r\n      },\r\n      \"actionName\":\"fetchBankList\",\r\n      \"requiredFields\":[]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
-    multi_select_pairs("multi_select (pairs)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"pairs\",\r\n      \"values\":[\r\n         {\r\n            \"label\":\"A\",\r\n            \"value\":\"A\"\r\n         },\r\n         {\r\n            \"label\":\"B\",\r\n            \"value\":\"B\"\r\n         }\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
-    multi_select_values("multi_select (values)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"values\",\r\n      \"values\":[\r\n         \"A\",\r\n         \"B\",\r\n         \"C\"\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
-//    tree_select("tree_select",""),
-//    multi_tree_select("multi_tree_select",""),
-//    bank_account_select("bank_account_select",""),
+    multi_select_async("multi-select (async)","{\r\n   \"name\":\"withdrawBankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"출금 은행\",\r\n   \"options\":{\r\n      \"type\":\"async\",\r\n      \"keyMap\":{\r\n         \"label\":\"label\",\r\n         \"value\":\"value\"\r\n      },\r\n      \"actionName\":\"fetchBankList\",\r\n      \"requiredFields\":[]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
+    multi_select_pairs("multi-select (pairs)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"pairs\",\r\n      \"values\":[\r\n         {\r\n            \"label\":\"A\",\r\n            \"value\":\"A\"\r\n         },\r\n         {\r\n            \"label\":\"B\",\r\n            \"value\":\"B\"\r\n         }\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
+    multi_select_values("multi-select (values)","{\r\n   \"name\":\"bankCode\",\r\n   \"type\":\"multi-select\",\r\n   \"label\":\"은행코드\",\r\n   \"options\":{\r\n      \"type\":\"values\",\r\n      \"values\":[\r\n         \"A\",\r\n         \"B\",\r\n         \"C\"\r\n      ]\r\n   },\r\n   \"placeholder\":\"은행 선택\",\r\n   \"autocomplete\":false\r\n}"),
+//    tree_select("tree-select",""),
+//    multi_tree_select("multi-tree-select",""),
+//    bank_account_select("bank-account-select",""),
 //    tab("tab",""),
     text("text","{\r\n   \"name\":\"amount\",\r\n   \"type\":\"text\",\r\n   \"label\":\"금액\",\r\n   \"required\":true,\r\n   \"defaultValue\":{\r\n      \"format\":\"{{amount}}\"\r\n   },\r\n   \"pattern\":\"(^\\\\d+$)|(^\\\\s*$)\",\r\n   \"unit\":\"원\",\r\n   \"normalizeEmptyValue\":\"null\",\r\n   \"placeholder\":\"금액 입력\"\r\n}"),
     textarea("textarea","{\r\n   \"name\":\"name\",\r\n   \"type\":\"textarea\",\r\n   \"placeholder\":\"이름 입력\",\r\n   \"label\":\"이름\",\r\n   \"required\":true,\r\n   \"defaultValue\":\"{{name}}\",\r\n   \"rows\":6,\r\n   \"showTextCount\":true,\r\n   \"resize\":\"vertical\",\r\n   \"autosize\":true,\r\n   \"normalizaEmptyValue\":\"null\"\r\n}"),
@@ -52,11 +54,6 @@ public enum FieldType {
 
     private final String value;
     private final String format;
-
-    FieldType(String value, String format) {
-        this.value = value;
-        this.format = format;
-    }
 
     private static final Map<String,FieldType> ENUM_MAP;
     static {
