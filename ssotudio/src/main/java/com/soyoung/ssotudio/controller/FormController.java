@@ -37,10 +37,9 @@ public class FormController {
     @Deprecated
     @GetMapping("/format")
     public ResponseEntity getFormFieldDefaultFormat(@RequestParam("type") String type){
-        log.info("getFormFieldDefaultFormat()");
+        log.info("getFormFieldDefaultFormat() : "+type);
 
         Field field = formService.getFormFieldDefaultFormat(type);
-
 
         BasicResponse<Field> response = BasicResponse.of(ResultType.SUCCESS, null, field);
         return new ResponseEntity<>(response, HttpStatus.OK);
