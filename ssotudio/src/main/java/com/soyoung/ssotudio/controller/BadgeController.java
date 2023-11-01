@@ -26,8 +26,8 @@ public class BadgeController {
     public ResponseEntity<BasicResponse> getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
         log.info("getBadges()");
         String jsonString = badgeService.makeBadges(requestContentBadge);
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
 
+        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

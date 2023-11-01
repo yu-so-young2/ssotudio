@@ -23,7 +23,10 @@ public class FormService {
         return formFieldTypes;
     }
 
-    public Field getFormFieldDefaultFormat(String type) {
-        return null;
+    public String getFormFieldDefaultFormat(String type) {
+        log.info("getFormFieldDefaultFormat() : "+type);
+        String format = FieldType.get(type).getFormat();
+
+        return format;
     }
 }
