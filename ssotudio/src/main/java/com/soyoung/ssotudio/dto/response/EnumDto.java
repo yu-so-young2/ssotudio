@@ -1,4 +1,4 @@
-package com.soyoung.ssotudio.dto;
+package com.soyoung.ssotudio.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

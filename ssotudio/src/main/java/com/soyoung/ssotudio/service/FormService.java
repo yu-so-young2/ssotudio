@@ -1,11 +1,9 @@
 package com.soyoung.ssotudio.service;
 
 import com.soyoung.ssotudio.domain.Field.Field;
-import com.soyoung.ssotudio.dto.*;
+import com.soyoung.ssotudio.dto.response.EnumDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

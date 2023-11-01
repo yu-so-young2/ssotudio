@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.constant.MetaBoolean;
 import com.soyoung.ssotudio.domain.Badge.ContentType;
 import com.soyoung.ssotudio.domain.Badge.ContentBadge;
-import com.soyoung.ssotudio.dto.RequestContentBadge;
+import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

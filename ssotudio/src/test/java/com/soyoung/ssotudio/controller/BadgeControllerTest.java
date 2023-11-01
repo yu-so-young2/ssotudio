@@ -2,7 +2,7 @@ package com.soyoung.ssotudio.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.domain.Badge.ContentBadge;
-import com.soyoung.ssotudio.dto.RequestContentBadge;
+import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
