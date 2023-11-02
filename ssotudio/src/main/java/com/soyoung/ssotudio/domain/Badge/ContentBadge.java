@@ -1,6 +1,8 @@
 package com.soyoung.ssotudio.domain.Badge;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
