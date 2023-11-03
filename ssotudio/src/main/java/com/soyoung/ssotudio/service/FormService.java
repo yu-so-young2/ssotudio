@@ -2,6 +2,8 @@ package com.soyoung.ssotudio.service;
 
 import com.soyoung.ssotudio.domain.Field.FieldType;
 import com.soyoung.ssotudio.dto.response.EnumDto;
+import com.soyoung.ssotudio.exception.CustomException;
+import com.soyoung.ssotudio.exception.ExceptionType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,14 @@ public class FormService {
     }
 
     public String getFormFieldDefaultFormat(String type) {
-        log.info("getFormFieldDefaultFormat() : "+type);
-        String format = FieldType.get(type).getFormat();
+        try {
+            log.info("getFormFieldDefaultFormat() : "+type);
+            String format = FieldType.get(type).getFormat();
 
-        return format;
+            return format;
+
+        } catch (NullPointerException e) {
+            throw new CustomException(ExceptionType.FORM_FIELD_TYPE_NOT_FOUND);
+        }
     }
 }

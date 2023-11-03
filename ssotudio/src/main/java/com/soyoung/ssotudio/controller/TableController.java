@@ -24,7 +24,7 @@ public class TableController {
     private final TableService tableService;
 
     @PostMapping("/columns")
-    public ResponseEntity getColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException, ParseException {
+    public ResponseEntity<BasicResponse<String>> getColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException, ParseException {
         log.info("getColumns()");
 
         String jsonString = tableService.makeColumns(jsonDto);

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultIndenter;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soyoung.ssotudio.controller.response.CustomException;
-import com.soyoung.ssotudio.controller.response.ErrorCode;
+import com.soyoung.ssotudio.exception.CustomException;
+import com.soyoung.ssotudio.exception.ExceptionType;
 import com.soyoung.ssotudio.domain.Columns.Columns;
 import com.soyoung.ssotudio.dto.request.JsonDto;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +80,10 @@ public class TableService {
             return jsonString;
 
         } catch (ParseException e) {
-            throw new CustomException(ErrorCode.INVALID_JSON_FORMAT);
+            throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
+        } catch (ClassCastException e) {
+            throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
+
         }
 
     }

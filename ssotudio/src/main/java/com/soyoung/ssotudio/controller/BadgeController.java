@@ -23,7 +23,7 @@ public class BadgeController {
     private final BadgeService badgeService;
 
     @PostMapping("/badges")
-    public ResponseEntity<BasicResponse> getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
+    public ResponseEntity<BasicResponse<String>> getBadges(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
         log.info("getBadges()");
         String jsonString = badgeService.makeBadges(requestContentBadge);
 

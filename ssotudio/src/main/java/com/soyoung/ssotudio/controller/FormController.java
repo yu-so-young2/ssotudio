@@ -25,7 +25,7 @@ public class FormController {
     private final FormService formService;
 
     @GetMapping("/types")
-    public ResponseEntity getFormFieldTypes() {
+    public ResponseEntity<List<EnumDto>> getFormFieldTypes() {
         log.info("getFormFieldTypes()");
 
         List<EnumDto> formFieldTypes = formService.getFormFieldTypes();
@@ -34,7 +34,7 @@ public class FormController {
     }
 
     @GetMapping("/format")
-    public ResponseEntity getFormFieldDefaultFormat(@RequestParam("type") String type){
+    public ResponseEntity<BasicResponse<String>> getFormFieldDefaultFormat(@RequestParam("type") String type){
         log.info("getFormFieldDefaultFormat() : "+type);
 
         String fieldDefaultFormat = formService.getFormFieldDefaultFormat(type);
