@@ -21,6 +21,8 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class TableService {
+    private final DefaultPrettyPrinter defaultPrettyPrinter;
+    private final ObjectMapper om;
 
     // string Json 들어오면 columns 만들어주기
     public String makeColumns(JsonDto jsonDto) throws JsonProcessingException {
@@ -66,18 +68,7 @@ public class TableService {
             root.setColumns(columns);
 
             // Object -> Json String으로 변환
-            ObjectMapper mapper = new ObjectMapper();
-
-            // 리스트 내부의 요소를 줄 바꿈과 들여쓰기로 출력하기 위해 Indenter 설정
-            DefaultPrettyPrinter printer = new DefaultPrettyPrinter();
-            DefaultPrettyPrinter.Indenter indenter = new DefaultIndenter("  ", "\n");
-            printer = printer.withArrayIndenter(indenter);
-
-            String jsonString = mapper.writer(printer).writeValueAsString(root);
-
-            System.out.println(jsonString);
-
-            return jsonString;
+            return om.writer(defaultPrettyPrinter).writeValueAsString(root);
 
         } catch (ParseException e) {
             throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);

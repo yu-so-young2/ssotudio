@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ public class FormController {
     private final FormService formService;
 
     @GetMapping("/types")
-    public ResponseEntity<List<EnumDto>> getFormFieldTypes() {
+    public ResponseEntity<List<EnumDto>> getFormFieldTypes() throws IOException {
         log.info("getFormFieldTypes()");
 
         List<EnumDto> formFieldTypes = formService.getFormFieldTypes();
@@ -34,9 +35,10 @@ public class FormController {
     }
 
     @GetMapping("/format")
-    public ResponseEntity<BasicResponse<String>> getFormFieldDefaultFormat(@RequestParam("type") String type){
+    public ResponseEntity<BasicResponse<String>> getFormFieldDefaultFormat(@RequestParam("type") String type) throws IOException {
         log.info("getFormFieldDefaultFormat() : "+type);
 
+//        String fieldDefaultFormat = formService.getFormFieldDefaultFormat(type);
         String fieldDefaultFormat = formService.getFormFieldDefaultFormat(type);
 
         BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, fieldDefaultFormat);

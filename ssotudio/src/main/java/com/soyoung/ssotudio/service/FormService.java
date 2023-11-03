@@ -1,39 +1,66 @@
 package com.soyoung.ssotudio.service;
 
-import com.soyoung.ssotudio.domain.Field.FieldType;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.dto.response.EnumDto;
 import com.soyoung.ssotudio.exception.CustomException;
 import com.soyoung.ssotudio.exception.ExceptionType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class FormService {
+    private final ResourceLoader resourceLoader;
+    private final DefaultPrettyPrinter defaultPrettyPrinter;
+    private final ObjectMapper om;
 
     public List<EnumDto> getFormFieldTypes() {
-        log.info("getFormFieldTypes()");
-        List<EnumDto> formFieldTypes = new ArrayList<>();
-        for (FieldType type : FieldType.values()) {
-            formFieldTypes.add(EnumDto.builder().label(type.getValue()).value(type.getValue()).build());
+        try {
+            log.info("getFormFieldTypes()");
+
+            Resource resource = resourceLoader.getResource("classpath:Field.json");
+            Map<String, JSONObject> fieldMap = om.readValue(resource.getInputStream(), new TypeReference<>() {});
+
+            List<EnumDto> formFieldTypes = new ArrayList<>();
+            for (String field : fieldMap.keySet()) {
+                formFieldTypes.add(EnumDto.builder().label(field).value(field).build());
+            }
+
+            return formFieldTypes;
+
+        } catch (IOException e) {
+            throw new CustomException(ExceptionType.FIELD_FILE_NOT_FOUND);
         }
-        return formFieldTypes;
     }
 
-    public String getFormFieldDefaultFormat(String type) {
+    public String getFormFieldDefaultFormat(String type)  {
         try {
             log.info("getFormFieldDefaultFormat() : "+type);
-            String format = FieldType.get(type).getFormat();
 
-            return format;
+            Resource resource = resourceLoader.getResource("classpath:Field.json");
+            Map<String, JSONObject> fieldMap = om.readValue(resource.getInputStream(), new TypeReference<>() {});
+            JSONObject field = fieldMap.get(type);
 
-        } catch (NullPointerException e) {
-            throw new CustomException(ExceptionType.FORM_FIELD_TYPE_NOT_FOUND);
+            if(field == null) {
+                throw new CustomException(ExceptionType.FORM_FIELD_TYPE_NOT_FOUND);
+            }
+
+            return om.writer(defaultPrettyPrinter).writeValueAsString(field);
+
+        } catch (IOException e) {
+           throw new CustomException(ExceptionType.FIELD_FILE_NOT_FOUND);
         }
     }
 }
