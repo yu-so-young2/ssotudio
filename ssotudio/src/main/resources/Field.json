@@ -1,0 +1,496 @@
+{
+  "alert": {
+    "icon":"icon-warning-circle",
+    "size":"medium",
+    "type":"alert",
+    "theme":"yellow",
+    "value":"여기에 메시지를 입력하세요"
+  },
+
+  "async-description": {
+    "type":"async-description",
+    "value":"{{tag}}",
+    "onError":{
+      "type":"toast",
+      "message":"다시 시도해주세요."
+    },
+    "actionName":"defaultCodeFill"
+  },
+
+  "async-image":{
+    "name":"image",
+    "type":"async-image",
+    "value":"data:image/png;base64,{{{image}}}",
+    "onError":{
+      "type":"toast",
+      "message":"다시 시도해주세요."
+    },
+    "actionName":"idCardImage"
+  },
+
+  "border": {
+    "type":"border",
+    "theme":"default"
+  },
+  "checkbox":{
+    "name":"본인체크",
+    "type":"checkbox",
+    "options":[
+      "고객 본인의 요청으로 진행하는 것을 확인했습니다."
+    ],
+    "minLength":1,
+    "validationMessage":{
+      "empty":"내용을 확인하고 체크해주세요."
+    }
+  },
+  "date": {
+    "name":"startDate",
+    "type":"date",
+    "label":"조회기간",
+    "dateFormat":"yyyy-MM-dd",
+    "placeholder":"YYYY-MM-dd",
+    "defaultValue":"0d",
+    "validationMessage":{
+      "empty":"조회기간을 입력해주세요."
+    },
+    "serializeWithIsoFormat":true
+  },
+  "date-range": {
+    "name":"regTs",
+    "type":"date-range",
+    "label":"검색 기간",
+    "keyMap":{
+      "since":"startRegTs",
+      "until":"endRegTs"
+    },
+    "required":"both",
+    "dateFormat":"yyyy-MM-dd",
+    "placeholder":"YYYY-MM-DD",
+    "defaultValue":"1w",
+    "validationMessage":{
+      "empty":"조회기간을 입력해주세요."
+    },
+    "serializeWithIsoFormat":true
+  },
+  "description": {
+    "type":"description",
+    "value":"<p style=\"font-size: 15px;color: rgb(107, 118, 132);\">디스크립션입니다.</p>"
+  },
+  "file": {
+    "name":"file",
+    "size":200,
+    "type":"file",
+    "label":"신분증 사진",
+    "required":true,
+    "bottomText":"최대 200KB의 파일만 업로드할 수 있어요.",
+    "extensions":[
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif"
+    ],
+    "placeholder":"파일 선택",
+    "validationMessage":{
+      "size":"최대 200KB의 파일만 업로드할 수 있어요.",
+      "empty":"파일을 첨부해주세요.",
+      "extensions":" 파일만 업로드할 수 있어요."
+    }
+  },
+  "hidden (key)": {
+    "name":"name",
+    "type":"hidden",
+    "value":{
+      "type":"key",
+      "key":"name"
+    }
+  },
+  "hidden (template)": {
+    "name":"name",
+    "type":"hidden",
+    "value":{
+      "type":"template",
+      "template":"{{name}}"
+    }
+  },
+  "hidden (raw)": {
+    "name":"name",
+    "type":"hidden",
+    "value":{
+      "type":"raw",
+      "content":true
+
+    }
+  },
+  "hstack": {
+    "type":"hstack",
+    "children":[
+    ],
+    "fractions":[
+      "1fr",
+      "1fr"
+    ]
+  },
+  "number": {
+    "name":"interest",
+    "type":"number",
+    "label":"금리",
+    "defaultValue":"{{interest}}"
+  },
+  "link": {
+    "type":"link",
+    "value":"열기",
+    "targetContainer":{
+      "type":"리다이렉트",
+      "params":{
+        "gaNo":{
+          "key":"sendUserGaNo"
+        }
+      },
+      "codeName":"리다이렉트"
+    }
+  },
+  "list": {
+    "name":"listEx",
+    "type":"list",
+    "label":"리스트",
+    "subText":"Object를 리스트에 담아 보낼 수 있어요.",
+    "draggable":true,
+    "children":[
+
+    ]
+  },
+  "password": {
+    "name":"password",
+    "type":"password",
+    "label":"비밀번호",
+    "placeholder":"비밀번호 입력"
+  },
+  "radio (async)": {
+    "name":"valid",
+    "type":"radio",
+    "label":"적용여부",
+    "inline":true,
+    "options":{
+      "type":"async",
+      "keyMap":{
+        "label":"label",
+        "value":"value"
+      },
+      "actionName":"fetchBankList",
+      "requiredFields":[
+
+      ]
+    }
+  },
+  "radio (pairs)": {
+    "name":"valid",
+    "type":"radio",
+    "label":"적용여부",
+    "inline":true,
+    "options":{
+      "type":"pairs",
+      "values":[
+        {
+          "label":"적용",
+          "value":"true"
+        },
+        {
+          "label":"미적용",
+          "value":"false"
+        }
+      ]
+    }
+  },
+  "radio (values)": {
+    "name":"valid",
+    "type":"radio",
+    "label":"적용여부",
+    "inline":true,
+    "options":{
+      "type":"values",
+      "values":[
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  },
+  "stepper":{
+    "type":"stepper",
+    "index":0,
+    "steps":[
+      {
+        "title":"강아지"
+      },
+      {
+        "title":"고양이"
+      },
+      {
+        "title":"판다"
+      }
+    ]
+  },
+  "segmented (async)":{
+    "name": "account",
+    "type": "segmented",
+    "label": "segmented async",
+    "options": {
+      "type": "async",
+      "keyMap": {
+        "label": "categoryName",
+        "value": "id"
+      },
+      "actionName": "fetchData",
+      "requiredFields": []
+    },
+    "defaultValue": "5"
+  },
+  "segmented (pairs)":{
+    "name": "segmented pairs",
+    "type": "segmented",
+    "label": "segmented pairs",
+    "options": {
+      "type": "pairs",
+      "values": [
+        {
+          "label": "옵션 1",
+          "value": "1"
+        }
+      ]
+    },
+    "defaultValue": "1"
+  },
+  "segmented (values)":{
+    "name": "segmented",
+    "type": "segmented",
+    "label": "segmented values",
+    "options": {
+      "type": "values",
+      "values": [
+        "규카츠",
+        "닭발"
+      ]
+    },
+    "subText": "오늘의 메뉴는?",
+    "defaultValue": "규카츠"
+  },
+  "select (async)":{
+    "name":"withdrawBankCode",
+    "type":"select",
+    "label":"출금 은행",
+    "options":{
+      "type":"async",
+      "keyMap":{
+        "label":"label",
+        "value":"value"
+      },
+      "actionName":"fetchBankList",
+      "requiredFields":[]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "select (pairs)":{
+    "name":"bankCode",
+    "type":"select",
+    "label":"은행코드",
+    "options":{
+      "type":"pairs",
+      "values":[
+        {
+          "label":"A",
+          "value":"A"
+        },
+        {
+          "label":"B",
+          "value":"B"
+        }
+      ]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "select (values)":{
+    "name":"bankCode",
+    "type":"select",
+    "label":"은행코드",
+    "options":{
+      "type":"values",
+      "values":[
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "multi-select (async)":{
+    "name":"withdrawBankCode",
+    "type":"multi-select",
+    "label":"출금 은행",
+    "options":{
+      "type":"async",
+      "keyMap":{
+        "label":"label",
+        "value":"value"
+      },
+      "actionName":"fetchBankList",
+      "requiredFields":[]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "multi-select (pairs)":{
+    "name":"bankCode",
+    "type":"multi-select",
+    "label":"은행코드",
+    "options":{
+      "type":"pairs",
+      "values":[
+        {
+          "label":"A",
+          "value":"A"
+        },
+        {
+          "label":"B",
+          "value":"B"
+        }
+      ]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "multi-select (values)":{
+    "name":"bankCode",
+    "type":"multi-select",
+    "label":"은행코드",
+    "options":{
+      "type":"values",
+      "values":[
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "placeholder":"은행 선택",
+    "autocomplete":false
+  },
+  "tree-select":{
+    "name":"parentId",
+    "type":"tree-select",
+    "options":{
+      "option":{
+        "depth":"depth",
+        "label":"name"
+      },
+      "select":{
+        "label":"fullName",
+        "value":"id"
+      },
+      "actionName":"fetchAll"
+    }
+  },
+  "multi-tree-select":{
+    "name":"strReportSubTypeReadOnly",
+    "type":"multi-tree-select",
+    "label":"STR 보고유형",
+    "multi":true,
+    "options":{
+      "type":"async",
+      "option":{
+        "depth":"depth",
+        "label":"name"
+      },
+      "select":{
+        "label":"fullName",
+        "value":"id"
+      },
+      "actionName":"strReportSubTypeList"
+    },
+    "disabled":true,
+    "maxDepth":1,
+    "placeholder":"항목 선택",
+    "autocomplete":true,
+    "defaultValue":"{{strReportSubType}}",
+    "validationMessage":{
+      "empty":"항목을 선택해주세요."
+    }
+  },
+ "bank-account-select":{
+   "type":"bank-account-select",
+   "name":"받는계좌",
+   "action":"fetchAccountList",
+   "defaultValueKey":"isMainAccount",
+   "fieldMap":{
+     "bankName":{
+       "fromField":"bankName"
+     },
+     "bankCode":{
+       "fromField":"bankCode",
+       "toField":"depositBankCode"
+     },
+     "accountNo":{
+       "fromField":"accountNo",
+       "toField":"depositAccountNumber"
+     }
+   }
+ },
+  "tab":{
+    "name":"tabCategory",
+    "type":"tab",
+    "options":{
+      "type":"pairs",
+      "values":[
+        {
+          "label":"퇴근!!",
+          "value":"퇴근"
+        },
+        {
+          "label":"출근...",
+          "value":"출근"
+        }
+      ]
+    },
+    "defaultValue":"퇴근"
+  },
+  "text":{
+    "name":"amount",
+    "type":"text",
+    "label":"금액",
+    "required":true,
+    "defaultValue":{
+      "format":"{{amount}}"
+    },
+    "pattern":"(^\\d+$)|(^\\s*$)",
+    "unit":"원",
+    "normalizeEmptyValue":"null",
+    "placeholder":"금액 입력"
+  },
+  "textarea":{
+    "name":"name",
+    "type":"textarea",
+    "placeholder":"이름 입력",
+    "label":"이름",
+    "required":true,
+    "defaultValue":"{{name}}",
+    "rows":6,
+    "showTextCount":true,
+    "resize":"vertical",
+    "autosize":true,
+    "normalizeEmptyValue":"null"
+  },
+  "toggle":{
+    "name":"toggleEx1",
+    "type":"toggle",
+    "label":"토글",
+    "labelOn":"토글의 상태가 On 일 경우 보여줄 라벨",
+    "labelOff":"토글의 상태가 Off 일 경우 보여줄 라벨"
+  },
+  "toggle (checkbox)":{
+    "name":"toggleEx2",
+    "type":"toggle",
+    "label":"토글선택",
+    "checkbox":true
+  }
+}
