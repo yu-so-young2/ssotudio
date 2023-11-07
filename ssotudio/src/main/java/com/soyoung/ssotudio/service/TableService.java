@@ -95,7 +95,17 @@ public class TableService {
             Iterator i = inputOrder.iterator();
             while(i.hasNext()) {
                 String key = (String) i.next();
-                outputColumns.put(key, inputColumns.get(key));
+                Object column = inputColumns.get(key);
+                if(column == null) {
+                    System.out.println("here!!");
+//                    Map<String, Object> newColumn = new JSONObject();
+//                    newColumn.put()
+                Columns.Column.Content content = Columns.Column.Content.builder().key(key).type("string").build();
+                List<Columns.Column.Content> contents = new ArrayList<>();
+                contents.add(content);
+                column = Columns.Column.builder().label(key).contents(contents).build();
+                }
+                outputColumns.put(key, column);
             }
 
             LinkedHashMap<String, Object> root = new LinkedHashMap<>();
@@ -106,6 +116,8 @@ public class TableService {
             return om.writer(defaultPrettyPrinter).writeValueAsString(root);
         } catch (ParseException | JsonProcessingException e) {
             throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
+        } catch (NullPointerException e) {
+            throw new CustomException(ExceptionType.COLUMNS_NOT_FOUND);
         }
 
     }
