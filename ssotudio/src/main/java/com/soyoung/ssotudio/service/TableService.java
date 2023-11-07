@@ -10,6 +10,7 @@ import com.soyoung.ssotudio.domain.Columns.Columns;
 import com.soyoung.ssotudio.dto.request.JsonDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,7 +26,7 @@ public class TableService {
     private final ObjectMapper om;
 
     // string Json 들어오면 columns 만들어주기
-    public String makeColumns(JsonDto jsonDto) throws JsonProcessingException {
+    public String makeColumns(JsonDto jsonDto) {
 
         try {
             log.info("makeColumns()");
@@ -70,13 +71,42 @@ public class TableService {
             // Object -> Json String으로 변환
             return om.writer(defaultPrettyPrinter).writeValueAsString(root);
 
-        } catch (ParseException e) {
+        } catch (ParseException | JsonProcessingException | ClassCastException e) {
             throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
-        } catch (ClassCastException e) {
-            throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
-
         }
 
     }
 
+    public String cleanColumns(JsonDto jsonDto) {
+        try {
+            log.info("cleanColumns()");
+
+            // String -> Object 변환
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) parser.parse(jsonDto.object);
+
+            // order 추출
+            // columns 추출
+            JSONArray inputOrder = (JSONArray) jsonObject.get("order");
+            JSONObject inputColumns = (JSONObject) jsonObject.get("columns");
+            JSONObject outputColumns = new JSONObject();
+
+            // order에 있는 column만 outputColumns에 추가
+            Iterator i = inputOrder.iterator();
+            while(i.hasNext()) {
+                String key = (String) i.next();
+                outputColumns.put(key, inputColumns.get(key));
+            }
+
+            LinkedHashMap<String, Object> root = new LinkedHashMap<>();
+            root.put("order", inputOrder);
+            root.put("columns", outputColumns);
+
+            // Object -> Json String으로 변환
+            return om.writer(defaultPrettyPrinter).writeValueAsString(root);
+        } catch (ParseException | JsonProcessingException e) {
+            throw new CustomException(ExceptionType.INVALID_JSON_FORMAT);
+        }
+
+    }
 }
