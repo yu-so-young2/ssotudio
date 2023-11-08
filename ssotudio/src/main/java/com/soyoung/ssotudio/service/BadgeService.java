@@ -30,7 +30,7 @@ public class BadgeService {
         return om.writer(defaultPrettyPrinter).writeValueAsString(contentBadge);
     }
 
-    private static ContentBadge getContentBadge(RequestContentBadge requestContentBadge, List<ContentBadge.BadgeValue> badgeValues) {
+    private ContentBadge getContentBadge(RequestContentBadge requestContentBadge, List<ContentBadge.BadgeValue> badgeValues) {
         return ContentBadge.builder()
                 .type(ContentType.badge)
                 .key(requestContentBadge.getKey())
@@ -56,8 +56,7 @@ public class BadgeService {
             return true;
         } else if (value.equals(MetaBoolean.FALSE)) {
             return false;
-        } else {
-            return value;
         }
+        return value;
     }
 }
