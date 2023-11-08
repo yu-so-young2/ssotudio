@@ -36,6 +36,11 @@ dependencies {
 	// swagger
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
+	// monitoring
+	implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.2")
+	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("io.micrometer:micrometer-core")
+
 }
 
 tasks.withType<Test> {
