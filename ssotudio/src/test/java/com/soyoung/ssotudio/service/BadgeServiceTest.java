@@ -1,7 +1,7 @@
 package com.soyoung.ssotudio.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.soyoung.ssotudio.domain.Badge.ContentBadge;
+import com.soyoung.ssotudio.domain.Content.Badge;
 import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ class BadgeServiceTest {
     @DisplayName("bade를 생성한다.")
     void BadgeServiceTest() throws JsonProcessingException {
         // given
-        ContentBadge.BadgeValue badgeValue = ContentBadge.BadgeValue.builder()
+        Badge.BadgeValue badgeValue = Badge.BadgeValue.builder()
                 .color("green")
                 .value(true)
                 .variant("weak")
@@ -33,7 +33,7 @@ class BadgeServiceTest {
         RequestContentBadge badge = new RequestContentBadge(key, List.of(badgeValue));
 
         // when
-        String result = badgeService.makeBadges(badge);
+        String result = badgeService.makeBadge(badge);
 
         // then
         assertThat(result).isEqualTo("{\n" +

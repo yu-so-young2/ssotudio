@@ -1,7 +1,7 @@
 package com.soyoung.ssotudio.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soyoung.ssotudio.domain.Badge.ContentBadge;
+import com.soyoung.ssotudio.domain.Content.Badge;
 import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ class BadgeControllerTest {
     @DisplayName("뱃지를 생성한다.")
     void BadgeControllerTest() throws Exception {
         // given
-        ContentBadge.BadgeValue badgeValue = ContentBadge.BadgeValue.builder()
+        Badge.BadgeValue badgeValue = Badge.BadgeValue.builder()
                 .color("green")
                 .value(true)
                 .variant("weak")

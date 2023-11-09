@@ -1,4 +1,4 @@
-package com.soyoung.ssotudio.domain.Badge;
+package com.soyoung.ssotudio.domain.Content;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,13 +8,13 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ContentBadge {
+public class Badge {
     private String key;
     private ContentType type;
     private List<BadgeValue> values;
 
     @Builder
-    public ContentBadge(String key, ContentType type, List<BadgeValue> values) {
+    public Badge(String key, ContentType type, List<BadgeValue> values) {
         this.key = key;
         this.type = type;
         this.values = values;

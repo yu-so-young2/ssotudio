@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.constant.MetaBoolean;
-import com.soyoung.ssotudio.domain.Badge.ContentType;
-import com.soyoung.ssotudio.domain.Badge.ContentBadge;
+import com.soyoung.ssotudio.domain.Content.ContentType;
+import com.soyoung.ssotudio.domain.Content.Badge;
 import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,25 +22,25 @@ public class BadgeService {
     private final DefaultPrettyPrinter defaultPrettyPrinter;
     private final ObjectMapper om;
     
-    public String makeBadges(RequestContentBadge requestContentBadge) throws JsonProcessingException {
-        log.info("makeBadges()");
-        List<ContentBadge.BadgeValue> badgeValues = mapToBadgeValues(requestContentBadge);
-        ContentBadge contentBadge = getContentBadge(requestContentBadge, badgeValues);
+    public String makeBadge(RequestContentBadge requestContentBadge) throws JsonProcessingException {
+        log.info("makeBadge()");
+        List<Badge.BadgeValue> badgeValues = mapToBadgeValues(requestContentBadge);
+        Badge badge = getContentBadge(requestContentBadge, badgeValues);
 
-        return om.writer(defaultPrettyPrinter).writeValueAsString(contentBadge);
+        return om.writer(defaultPrettyPrinter).writeValueAsString(badge);
     }
 
-    private ContentBadge getContentBadge(RequestContentBadge requestContentBadge, List<ContentBadge.BadgeValue> badgeValues) {
-        return ContentBadge.builder()
+    private Badge getContentBadge(RequestContentBadge requestContentBadge, List<Badge.BadgeValue> badgeValues) {
+        return Badge.builder()
                 .type(ContentType.badge)
                 .key(requestContentBadge.getKey())
                 .values(badgeValues)
                 .build();
     }
 
-    private List<ContentBadge.BadgeValue> mapToBadgeValues(RequestContentBadge requestContentBadge) {
+    private List<Badge.BadgeValue> mapToBadgeValues(RequestContentBadge requestContentBadge) {
         return requestContentBadge.getValues().stream()
-                .map(value -> ContentBadge.BadgeValue.builder()
+                .map(value -> Badge.BadgeValue.builder()
                         .color(value.getColor())
                         .variant(value.getVariant())
                         .label(value.getLabel())
@@ -50,7 +50,7 @@ public class BadgeService {
                 .collect(Collectors.toList());
     }
 
-    private Object getValue(ContentBadge.BadgeValue requestBadgeValue) {
+    private Object getValue(Badge.BadgeValue requestBadgeValue) {
         Object value = requestBadgeValue.getValue();
         if (value.equals(MetaBoolean.TRUE)) {
             return true;
