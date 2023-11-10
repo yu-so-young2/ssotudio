@@ -30,7 +30,7 @@ jobs:
         java-version: '20'
         distribution: 'zulu'
 
-    ## 환경파일 작성 : github에 올리지 못하는 정보의 설정파일을 runner에 삽입하는 것
+    ## 환경파일 작성 : github에 올리지 못하는 정보의 설정파일을 runner에 삽입하는 것이다.
     ## 필요없어서 작성 안 함
     # ## create application-database.yaml
     # - name: make application-database.yaml
@@ -52,7 +52,7 @@ jobs:
     - name: Build with Gradle
       run: |
           ls -al
-          cd ssotidio
+          cd ssotudio
           chmod +x ./gradlew
           ./gradlew build
 
@@ -61,11 +61,12 @@ jobs:
     ## 웹 이미지 빌드 및 도커허브에 push
     - name: web docker build and push
       run: |
+        ls -al
+        cd ssotudio
         docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
         docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }} .
         docker images
         docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
-
 
     ## docker compose up
     ## appleboy/ssh-action@master 액션을 사용하여 지정한 서버에 ssh로 접속하고, script를 실행
@@ -75,11 +76,10 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
-        username: ubuntu
+        username: ec2-user
         key: ${{ secrets.KEY }}
         script: |
           sudo docker rm -f $(docker ps -qa)
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
-          sudo docker pull ${{ secrets.DOCKER_REPO }}/ssotudio
+          sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ssotudio
           docker-compose up -d
           docker image prune -f
