@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soyoung.ssotudio.domain.Content.Badge;
 import com.soyoung.ssotudio.domain.Content.Button;
+import com.soyoung.ssotudio.domain.Content.ColoredButton;
 import com.soyoung.ssotudio.domain.Content.ContentType;
 import com.soyoung.ssotudio.dto.request.RequestContentBadge;
 import com.soyoung.ssotudio.dto.request.RequestContentButton;
@@ -28,17 +29,38 @@ public class ButtonService {
     public String makeButton(RequestContentButton requestContentButton) throws JsonProcessingException {
         log.info("makeBadges()");
         Button.TargetContainer targetContainer = mapToTargetContainer(requestContentButton);
-        Button button = getContentButton(requestContentButton, targetContainer);
+
+        Button button;
+
+        if(isColor(requestContentButton.getColor())) {
+            button = getContentColoredButton(requestContentButton, targetContainer);
+        } else {
+            button = getContentButton(requestContentButton, targetContainer);
+        }
 
         return om.writer(defaultPrettyPrinter).writeValueAsString(button);
+    }
+
+    private boolean isColor(String color) {
+        if(color.equals("red") || color.equals("blue")) return true;
+        return false;
     }
 
     private Button getContentButton(RequestContentButton requestContentButton, Button.TargetContainer targetContainer) {
         return Button.builder()
                 .type(ContentType.button)
                 .value(requestContentButton.getValue())
-                .color(requestContentButton.getColor())
                 .variant(requestContentButton.getVariant())
+                .targetContainer(targetContainer)
+                .build();
+    }
+
+    private ColoredButton getContentColoredButton(RequestContentButton requestContentButton, Button.TargetContainer targetContainer) {
+        return ColoredButton.coloredButtonBuilder()
+                .type(ContentType.button)
+                .value(requestContentButton.getValue())
+                .variant(requestContentButton.getVariant())
+                .color(requestContentButton.getColor())
                 .targetContainer(targetContainer)
                 .build();
     }

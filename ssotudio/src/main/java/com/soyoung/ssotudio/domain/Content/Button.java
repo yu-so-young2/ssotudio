@@ -11,15 +11,13 @@ import java.util.Map;
 public class Button {
     private ContentType type;
     private String value;
-    private String color;
     private String variant;
     private TargetContainer targetContainer;
 
     @Builder
-    public Button(ContentType type, String value, String color, String variant, TargetContainer targetContainer) {
+    public Button(ContentType type, String value, String variant, TargetContainer targetContainer) {
         this.type = type;
         this.value = value;
-        this.color = color;
         this.variant = variant;
         this.targetContainer = targetContainer;
     }
@@ -49,7 +47,4 @@ public class Button {
             }
         }
     }
-
-
 }
-
