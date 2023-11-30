@@ -2,6 +2,8 @@ package com.soyoung.ssotudio.controller;
 
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
+import com.soyoung.ssotudio.exception.CustomException;
+import com.soyoung.ssotudio.exception.ExceptionType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +23,16 @@ public class TestController {
     @GetMapping("/success/without-data")
     @Operation(summary = "데이터 없는 성공", description = "success/data = null 응답")
     public ResponseEntity<BasicResponse<String>> successWithoutData()  {
-    
+
         BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, null);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/fail")
+    @Operation(summary = "실패", description = "")
+    public ResponseEntity<BasicResponse<String>> fail()  {
+
+        throw new CustomException(ExceptionType.FORM_FIELD_TYPE_NOT_FOUND);
     }
 
 }
