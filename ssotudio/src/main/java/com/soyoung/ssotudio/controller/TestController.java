@@ -41,7 +41,7 @@ public class TestController {
 
     @GetMapping("/")
     @Operation(summary = "테스트")
-    public ResponseEntity<BasicResponse<List<EnumDto>>> test(@RequestParam(required = false) String param1, @RequestParam(required = false) String param2) {
+    public ResponseEntity<List<EnumDto>> test(@RequestParam(required = false) String param1, @RequestParam(required = false) String param2) {
         List<EnumDto> enumList = new ArrayList<>();
 
         if("고기".equals(param1)) {
@@ -61,10 +61,8 @@ public class TestController {
             enumList.add(EnumDto.builder().label("샤브샤브").value("샤브샤브").build());
             enumList.add(EnumDto.builder().label("돌솥밥").value("돌솥밥").build());
         }
-
-
-        BasicResponse<List<EnumDto>> response = BasicResponse.of(ResultType.SUCCESS, null, enumList);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        
+        return new ResponseEntity<>(enumList, HttpStatus.OK);
     }
 
 }
