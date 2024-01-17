@@ -69,7 +69,7 @@ public class TestController {
 
     @GetMapping("/2")
     @Operation(summary = "sourceKey 테스트")
-    public ResponseEntity<BasicResponse<List<Transaction>>> test2(@RequestParam(required = false) String param1, @RequestParam(required = false) String param2) {
+    public ResponseEntity<BasicResponse<List<Transaction>>> test2() {
 
         SourceId sourceId1 = SourceId.builder().sourceId("SOURCE_1").build();
         SourceId sourceId2 = SourceId.builder().sourceId("SOURCE_2").build();
