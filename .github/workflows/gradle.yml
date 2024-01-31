@@ -75,9 +75,9 @@ jobs:
     - name: Deploy to server
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.HOST_S2 }}
         username: ec2-user
-        key: ${{ secrets.KEY }}
+        key: ${{ secrets.KEY_S2 }}
         script: |
           sudo docker rm -f $(docker ps -qa)
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/ssotudio
