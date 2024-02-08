@@ -1,0 +1,18 @@
+
+{
+    "1": {
+        "name": "치이카와",
+        "image": "<img src=\"https://i.namu.wiki/i/Yu5BDHQYknKmChLkS9bgOR0jqfE3ojWF_VgjMJ3nhbmztCFy_qp8pFs0eN4q7sM8FYnCU8Nv89wAPcBPMXo3Sg.webp\" alt=\"\" width=\"200\" height=\"200\">",
+        "html": "<div style=\"position:relative;\"><div style=\"opacity:0.3;position:absolute;left:120px;top:20px;width:100px;height:170px;background-color:#73AD21\"></div> <div style=\"margin-top:30px;width:360px;height:130px;padding:20px;border-radius:10px;border:10px solid #EE872A;font-size:120%;\"> <h1>CSS = Styles and Colors</h1> <div style=\"letter-spacing:12px;font-size:15px;position:relative;left:25px;top:25px;\">Manipulate Text</div> <div style=\"color:#40B3DF;letter-spacing:12px;font-size:15px;position:relative;left:25px;top:30px;\">Colors,<span style=\"background-color:#B4009E;color:#ffffff;\"> Boxes</span></div></div></div>"
+    },
+    "2": {
+        "name": "우사기",
+        "image": "<img src=\"https://i.namu.wiki/i/geGngQMnvmK2g3wuKU4O1uNs8Ix1HXQULk9PrnT57lHOlU4AxL9qsNCYXOOY9DIqPWtXnphq8G6NzCcvzv-ppQ.webp\" alt=\"\" width=\"200\" height=\"200\">",
+        "html": "<h2>An Ordered HTML List</h2><ol>  <li>Coffee</li>  <li>Tea</li>  <li>Milk</li></ol>"
+    },
+    "3": {
+        "name": "랏코",
+        "image": "<img src=\"https://i.namu.wiki/i/EqejW1MYM4pbZiWoKWTTV_cFNNoHXH_Voz6qNMt9D0nVTJezg94dSdb0l6JTwLFLrmUM8UWU5ySngRLH2_PVEA.webp\" alt=\"\" width=\"200\" height=\"200\">",
+        "html": "<h2>Input Button</h2><input type=\"button\" onclick=\"alert(''Hello World!'')\" value=\"Click Me!\">"
+    }
+}

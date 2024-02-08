@@ -1,8 +1,8 @@
 package com.soyoung.ssotudio.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soyoung.ssotudio.domain.Content.Badge;
-import com.soyoung.ssotudio.dto.request.RequestContentBadge;
+import com.soyoung.ssotudio.ssotudio.dto.badge.Badge;
+import com.soyoung.ssotudio.ssotudio.dto.badge.BadgeRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ class BadgeControllerTest {
                 .label("Y")
                 .build();
         String key = "isVisited";
-        RequestContentBadge badge = new RequestContentBadge(key, List.of(badgeValue));
+        BadgeRequest badge = new BadgeRequest(key, List.of(badgeValue));
 
         // when // then
         mockMvc.perform(post("/api/badges")

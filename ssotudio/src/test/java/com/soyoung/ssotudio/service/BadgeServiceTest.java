@@ -1,8 +1,9 @@
 package com.soyoung.ssotudio.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.soyoung.ssotudio.domain.Content.Badge;
-import com.soyoung.ssotudio.dto.request.RequestContentBadge;
+import com.soyoung.ssotudio.ssotudio.dto.badge.Badge;
+import com.soyoung.ssotudio.ssotudio.dto.badge.BadgeRequest;
+import com.soyoung.ssotudio.ssotudio.service.BadgeService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ class BadgeServiceTest {
                 .build();
 
         String key = "isVisited";
-        RequestContentBadge badge = new RequestContentBadge(key, List.of(badgeValue));
+        BadgeRequest badge = new BadgeRequest(key, List.of(badgeValue));
 
         // when
         String result = badgeService.makeBadge(badge);
