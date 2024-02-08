@@ -125,7 +125,7 @@ public class TestController {
         List<ChiikawaDto> chiikawaDtos = new ArrayList<>();
         ChiikawaDto chiikawaDto3 = ChiikawaDto.builder()
                 .id(3)
-                .image("https://i.namu.wiki/i/EqejW1MYM4pbZiWoKWTTV_cFNNoHXH_Voz6qNMt9D0nVTJezg94dSdb0l6JTwLFLrmUM8UWU5ySngRLH2_PVEA.webp")
+                .image("<img src=\"https://i.namu.wiki/i/EqejW1MYM4pbZiWoKWTTV_cFNNoHXH_Voz6qNMt9D0nVTJezg94dSdb0l6JTwLFLrmUM8UWU5ySngRLH2_PVEA.webp\" alt=\"\" width=\"200\" height=\"200\">")
                 .html("<h2>Input Button</h2>\n" +
                         "\n" +
                         "<input type=\"button\" onclick=\"alert('Hello World!')\" value=\"Click Me!\">")
