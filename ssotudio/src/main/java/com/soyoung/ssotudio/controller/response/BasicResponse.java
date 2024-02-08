@@ -6,7 +6,7 @@ import lombok.Data;
 public class BasicResponse<T> {
     private ResultType resultType;
     private ErrorDetails error;
-    private T data;
+    private T contents;
 
     private BasicResponse() {
     }
@@ -15,7 +15,7 @@ public class BasicResponse<T> {
         BasicResponse<T> basicResponse = new BasicResponse<>();
         basicResponse.setResultType(resultType);
         basicResponse.setError(error);
-        basicResponse.setData(success);
+        basicResponse.setContents(success);
 
         return basicResponse;
     }
