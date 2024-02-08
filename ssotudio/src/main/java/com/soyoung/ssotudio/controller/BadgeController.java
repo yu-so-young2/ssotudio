@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
 import com.soyoung.ssotudio.dto.request.RequestContentBadge;
+import com.soyoung.ssotudio.dto.response.DataDto;
 import com.soyoung.ssotudio.service.BadgeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,11 +28,12 @@ public class BadgeController {
 
     @PostMapping("/badges")
     @Operation(summary = "뱃지 생성", description = "key, value, label에 해당하는 뱃지 content를 생성합니다.")
-    public ResponseEntity<BasicResponse<String>> makeBadge(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
+    public ResponseEntity<BasicResponse<DataDto>> makeBadge(@RequestBody RequestContentBadge requestContentBadge) throws JsonProcessingException {
         log.info("makeBadge()");
         String jsonString = badgeService.makeBadge(requestContentBadge);
+        DataDto data = DataDto.builder().data(jsonString).build();
 
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
+        BasicResponse<DataDto> response = BasicResponse.of(ResultType.SUCCESS, null, data);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

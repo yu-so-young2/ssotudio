@@ -2,6 +2,7 @@ package com.soyoung.ssotudio.controller;
 
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
+import com.soyoung.ssotudio.dto.response.DataDto;
 import com.soyoung.ssotudio.dto.response.EnumDto;
 import com.soyoung.ssotudio.service.FormService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,13 +40,14 @@ public class FormController {
 
     @GetMapping("/format")
     @Operation(summary = "폼 필드 생성", description = "type에 해당하는 폼 필드의 기본 format을 조회합니다.")
-    public ResponseEntity<BasicResponse<String>> getFormFieldDefaultFormat(@RequestParam("type") String type) throws IOException {
+    public ResponseEntity<BasicResponse<DataDto>> getFormFieldDefaultFormat(@RequestParam("type") String type) throws IOException {
         log.info("getFormFieldDefaultFormat() : "+type);
 
-//        String fieldDefaultFormat = formService.getFormFieldDefaultFormat(type);
         String fieldDefaultFormat = formService.getFormFieldDefaultFormat(type);
 
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, fieldDefaultFormat);
+        DataDto data = DataDto.builder().data(fieldDefaultFormat).build();
+        BasicResponse<DataDto> response = BasicResponse.of(ResultType.SUCCESS, null, data);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

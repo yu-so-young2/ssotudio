@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
 import com.soyoung.ssotudio.dto.request.JsonDto;
+import com.soyoung.ssotudio.dto.response.DataDto;
 import com.soyoung.ssotudio.service.TableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,23 +28,26 @@ public class TableController {
 
     @PostMapping("/columns")
     @Operation(summary = "테이블 생성", description = "응답값에 해당하는 테이블 columns를 생성합니다.")
-    public ResponseEntity<BasicResponse<String>> getColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException  {
+    public ResponseEntity<BasicResponse<DataDto>> getColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException  {
         log.info("getColumns()");
 
         String jsonString = tableService.makeColumns(jsonDto);
+        DataDto data = DataDto.builder().data(jsonString).build();
 
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
+        BasicResponse<DataDto> response = BasicResponse.of(ResultType.SUCCESS, null, data);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/cleaner")
     @Operation(summary = "테이블 클리너", description = "사용하지 않는 column 정보를 삭제합니다.")
-    public ResponseEntity<BasicResponse<String>> cleanColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException {
+    public ResponseEntity<BasicResponse<DataDto>> cleanColumns(@RequestBody JsonDto jsonDto) throws JsonProcessingException {
         log.info("cleanColumns()");
 
         String jsonString = tableService.cleanColumns(jsonDto);
+        DataDto data = DataDto.builder().data(jsonString).build();
 
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
+
+        BasicResponse<DataDto> response = BasicResponse.of(ResultType.SUCCESS, null, data);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

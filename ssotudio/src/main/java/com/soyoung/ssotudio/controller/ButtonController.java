@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.soyoung.ssotudio.controller.response.BasicResponse;
 import com.soyoung.ssotudio.controller.response.ResultType;
 import com.soyoung.ssotudio.dto.request.RequestContentButton;
+import com.soyoung.ssotudio.dto.response.DataDto;
 import com.soyoung.ssotudio.service.ButtonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,11 +28,13 @@ public class ButtonController {
 
     @PostMapping("/button")
     @Operation(summary = "버튼 생성", description = "label, targetContainer에 해당하는 버튼 content를 생성합니다.")
-    public ResponseEntity<BasicResponse<String>> makeButton(@RequestBody RequestContentButton requestContentButton) throws JsonProcessingException {
+    public ResponseEntity<BasicResponse<DataDto>> makeButton(@RequestBody RequestContentButton requestContentButton) throws JsonProcessingException {
         log.info("makeButton()");
         String jsonString = buttonService.makeButton(requestContentButton);
+        DataDto data = DataDto.builder().data(jsonString).build();
 
-        BasicResponse<String> response = BasicResponse.of(ResultType.SUCCESS, null, jsonString);
+
+        BasicResponse<DataDto> response = BasicResponse.of(ResultType.SUCCESS, null, data);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
