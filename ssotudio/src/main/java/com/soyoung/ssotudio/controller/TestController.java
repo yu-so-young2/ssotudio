@@ -170,7 +170,7 @@ public class TestController {
 
     @GetMapping("/chiikawa/{id}")
     @Operation(summary = "석환님 메롱", description = "")
-    public ResponseEntity<BasicResponse<ChiikawaDto>> getChiikawa(@PathVariable("id") int id)  {
+    public ResponseEntity<BasicResponse<ChiikawaDto>> getChiikawa(@PathVariable("id") int id) throws InterruptedException {
         ChiikawaDto chiikawaDto2 = ChiikawaDto.builder()
                 .id(2)
                 .image("<img src=\"https://i.namu.wiki/i/geGngQMnvmK2g3wuKU4O1uNs8Ix1HXQULk9PrnT57lHOlU4AxL9qsNCYXOOY9DIqPWtXnphq8G6NzCcvzv-ppQ.webp\" alt=\"\" width=\"200\" height=\"200\">")
@@ -219,7 +219,7 @@ public class TestController {
             chiikawa = chiikawaDto3;
         }
 
-
+        Thread.sleep(1000);
         BasicResponse<ChiikawaDto> response = BasicResponse.of(ResultType.SUCCESS, null, chiikawa);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
